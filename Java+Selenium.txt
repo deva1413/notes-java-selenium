@@ -1,0 +1,571 @@
+selenium :
+=========
+--  Selenium is a powerful open-source framework that enables automated testing of web applications across multiple browsers and platforms
+-- to automate repetitive tasks, test web applications, and ensure their functionality across different browsers and platforms.
+--  With Selenium framework, manual testing efforts are minimized,testers are able to deliver test cycles faster by automating repeated test cases.
+--  Selenese is the language used to write selenium commands
+
+Component:
+1. Selenium IDE
+2. Selenium RC
+3. Selenium Grid
+4. Selenium WebDriver
+
+webdriver  - I   (chromedriver and others -C  )
+================================================
+-- Selenium WebDriver is a web framework that permits you to execute cross-browser tests. This tool is used for automating web-based application testing to verify that it performs expectedly.
+
+Selenium WebDriver allows you to choose a programming language to create test scripts
+
+
+
+Benefits of Selenium WebDriver:
+==============================
+* It is one of the most popular Open-Source tools and is easy to get started with for testing web-based applications. It also allows you to perform cross         	browser compatibility testing.
+* Supports multiple operating systems like Windows, Mac, Linux, Unix, etc.
+* It provides compatibility with a range of languages, including Python, Java, Perl, Ruby, etc.
+* Provides support for modern browsers like Chrome, Firefox, Safari, and Internet Explorer.
+* Selenium WebDriver completes the execution of test scripts faster when compared to other tools
+* More Concise API (Application Programming interface) than Selenium RC’s
+* It also provides compatibility with iPhoneDriver, HtmlUnitDriver, and AndroidDriver
+* Selenium supports parallel test execution.
+* Selenium can be integrated with TestNG and JUnit to generate test reports and manage test cases.
+* Selenium can be integrated with Jenkins, Docker, and Maven to attain continuous testing. 
+
+Drawbacks :
+===========
+* Selenium can test only web applications. It cannot test software applications and other desktop applications. 
+* Selenium cannot access the web elements outside the web applications that are under test.
+* No guaranteed user support is available. http://org.eclipse.ui.intro/showPage?id=overview
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+selenium jar files (client & web driver bindings)
+
+	1. Create a new project in Eclipse?
+	2. Create a new package under the project?
+	3. And, create a new class under the package?
+	4. How to Add  Selenium WebDriver Jars to the project?
+
+
+Maximize browser window using Selenium Webdriver  ---  manage() method
+			driver.manage().window().maximize();
+
+
+
+Maven , add maven dependencies (POM.xml) (like selenium java jar file)
+
+
+simple script (setProperty --m,webdriver,driver)      1. Setting the driver path
+steps to Instantiate WebDriver			      2. Creating WebDriver instance( initilizing the driver)
+						      3. Navigate to web page ( launched )
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+findElement(): This method uniquely finds a web element on the web page.
+Syntax :  WebElement elementName = driver.findElement(By.LocatorStrategy("LocatorValue"));
+
+
+findElements(): This method finds a list of web elements on the web page.
+Syntax: List<WebElement> elementName = driver.findElements(By.LocatorStrategy("LocatorValue"));
+
+
+findElement locators strategies	. id				By-- locator   By.Id
+				. name]\
+
+				. class name
+				. tag name
+				. CSS selector
+				. XPath
+				. linkText
+				. Partiallinktext
+
+driver.findElements(By.tagname("LocatorValue"));
+		
+
+Web driver methods  .  	get()   open the app
+			. getCurrentURL()  --- current url
+			. getTitle()		title of page
+			. getText()
+			. getTagName()
+			. getCSSValue()
+			. getAttribute(string name)
+			. quit()
+			. close()
+
+
+Browser Navigate methods  . driver.navigate().to(appUrl);    to back forward refresh
+			  . driver.navigate().back()
+			  . driver.navigate().forward() 
+			  . driver.navigate().refresh() 
+
+
+Web Elements methods    . findElement()
+			. sendKeys() - used to enter text in the web element
+			. submit() - used to submit a form
+			. click() - used to perform click on the web element
+			. clear() - used to clear entered text
+			. isEnabled()
+			. isDisplayed()
+			. isSelected()
+--------------------------------------------------------------------------------------------------------------
+
+Xpath   . Absolute xpath  - It contains the complete path from root element to desire element
+			    It is a direct way to find element 
+			    Single forward slash (/)
+			eg:- 
+			/html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/form[1]/div[1]/input[1]
+
+	. Relative xpath  - It is simply like refrencing the element and go from particular location 
+			    not a complete path from root element, can start from middle of HTML DOM structure
+			    Double slash (//)
+			    so relative xpath is always preferred
+			eg:  //input[@placeholder="Username"]
+
+
+Syntax:    //tagname[@attribute='value']
+ 	
+//     --  current node
+tagname -- tagname of particular node like input, div etc
+@	--  allows you to select attribute
+attribute -- select attribute like id , name, classname etc
+value	-- value of attribute
+
+
+eg:-  //input[@name='password']
+      //*[@id='login']
+	//input[@type='text']
+	//input[@class='username3241']
+	//a[@href='https://www.google.com']
+	//img[@src='../images/java.png']
+
+
+* methods:       basic xpath  -- //tagname[@attribute='value']
+		 contains     -- //tagname[contains(@attribute,'value')]
+		 text 	      -- //tagname[text()='value']
+		 starts-with  -- //tagname[starts-with(@attribute,'value')]
+		 or ,and      -- //tagname[@attribute='value' or @attribute='value']
+				 //tagname[@attribute='value' and @attribute='value']
+
+		contains     //*[contains(@placeholder,'Username')]
+		text         //h4[text()='Password for all users:']
+		starts-with  //input[starts-with(@type,'submit')]
+		OR	     //input[@type='text' or @id='user-name']
+		AND	     //input[@type='text' and @id='user-name']
+
+---------------------------------------------------------------
+CSS Selector   contains
+		starts-with
+		end-with
+
+for id ----- #id  	 eg:  #password
+for other attributes ----tagname[att=value] 		eg: input[placeholder=password]
+
+contains(*)	input[id*=password]
+starts-with(^)	input[id^=user]
+end with($)  	input[id$=word]
+
+first-of-type     	tagname#id>tagname:first-of-type
+last-of-type		tagname[class=day]>tagname:last-of-type
+nth-of-type		tag#id>tag:nth-of-type(6)
+
+		
+
+--------------------------------------------------------------------------------------------------------------------
+Axes  
+XPath Axes in Selenium WebDriver used to locate a web element which is not having any attributes on it's own, can't locate it directly using any of the locator strategy which selenium WebDriver provides except XPath and very useful to locate dynamic XPath. In such cases we can use XPath Axes mechanism to locate based on other web elements present in the HTML Document. We can use any one or all of the XPath axes names/method to locate any web element on given web page.
+
+XPath Axes Names/Methods ========
+    
+1) Self -- Selects the current node
+2) Parent -- Selects the parent of the current node
+3) Child  --  Selects all children of the current node
+4) Ancestor  --Selects all ancestors (parent, grandparent, etc.) of the current node
+5) Descendant  --  Selects all descendants (children, grandchildren, etc.) of the current node
+6) Following-sibling  --  Selects all55 siblings after the current node
+7) Preceding-sibling -- Selects all siblings before the current node
+
+syntax
+//tagname[@attribute='value']/Axes::tagname[0]
+//tagname[@attribute='value']/Axes::tagname/axes::tagname[0]
+
+examples
+//div[@class='form_group']/descendant::input[1]
+//div[@class='form_group']/parent::form/child::div[1]
+//div[@class='form_group']/child::input[1]
+//div[@class="form_group"]/parent::form
+
+//div[@class="form_group"]/ancestor::div[@class="login_wrapper"]
+//div[@class="form_group"]/ancestor::div[4]
+
+//div[@class="form_group"]/child::input
+
+//div[@class="error-message-container"]/preceding-sibling::div
+
+------------------------------------------------------------------------------------------------------------------------
+Xpath and Xpath Axes
+
+	* syntax   //tagname[@attribute='value']
+
+	* absolute and relative
+
+	* methods: contains 
+		 text 
+		 starts-with
+		 or ,and
+	* XPath axes methods
+		following,preceding,ancestor,parent,child,following-sibling,self,descendant
+
+---------------------------------------------------------------------------------------------------------------------
+CheckBoxes
+---------------------------------------------------------------------------------------------------------------------
+Radio Buttons
+-------------------------------------------------------------------------------------------------------------
+Drop Down       Select --- The Select Class in Selenium is a method used to implement the HTML SELECT tag. methods to select and deselect the elements. The Select class is an ordinary class so New keyword is used to create its object and it specifies the web element location.
+
+		selectByVisibleText()           single
+		deselectByVisibleText()		multiple option
+		selectByValue() 		single
+		deselectByValue()		multiple option
+		selectByIndex()			single
+		deselectByIndex()		multiple option
+	        isMultiple()       --  boolean  returns TRUE if the drop-down element allows multiple selection at a 										time; FALSE if otherwise
+		deselectAll()	-- Clears all selected entries. This is only valid when the drop-down element supports multiple selections.
+		getFirstSelectedOption()  -- This method returns the first selected option of the dropdown
+		getAllSelectedOption()    --  This method returns all the selected options of the dropdown
+		getOptions()		-- There are times when you need to get all the options in a dropdown or multi-select box. This is where you can use the getOptions() method of the Select class.
+
+
+-----------------------------------------------------------------------------------------------
+Actions  class	---  it is a built in feature provided by selenium for handling mouse and keyboard events
+			 build()   perform()
+	    	  with movetoElement & without , sendkeys()
+		
+	methods ----		single , double, right(context) ,sendkeys(), drag and drop
+
+
+	actions					webelement
+	
+	sendkeys()				sendkeys()
+
+	simulate the keyboard key		typing there text into the text fields
+	by press and release
+
+	like tab,enter,down,up etc		like "username"
+------------------------------------------------------------------------------------------
+Frame :- Frames are a now deprecated means of building a site layout from multiple documents on the same domain.
+		The frame enables a developer to split the screen horizontally or vertically by using the frameset tag.
+		An iframe is also known as an inline frame.
+		 An iframe tag is defined using <iframe></iframe> tags
+		
+
+Handle Frames   driver.switchTo().frame();  ---  by index,id&name ,parent , frame element
+<iframe>
+
+drivedr.switchTO().Frame(index)
+drivedr.switchTO().Frame(name & id)
+drivedr.switchTO().Frame(WebElement)
+drivedr.switchTO().parentFrame(), defaultContent()
+
+. switchTo()  --  helps to switch between the Frames
+
+--------------------------------------------------------------------------------------------------------------
+
+wait Synchronization  --  coordination process between the com70onents is termed Synchronisation.
+		      -- Synchronisationin Selenium executes the code and applications, which must be in 			synchronisation to perform the operation.
+		     --  wait command in selenium direct test script to pause for certain time before throwing "ElementNotVisibleException" ,  NoSuchElementException , InvalidSelectorException , TimeoutExcetion
+
+
+   1. Implicit wait -- dynamic wait , global ( tells the web driver to wait for certain amount of time before it throws 
+---exception as nosuchelement found ,  it will wait till maximum of the seconds given   
+--- driver.manage().timeouts().implicitWait(duration.ofSeconds());
+
+-	When finding the element in any webpage selenium doesn't wait for any time, so if the element is not available 	immediately then selenium webdriver will throw the exception i.e: NoSuchElementException 
+	For eg: element A takes 0sec to find and element B takes 2sec to find
+- You can allow the selenium webdriver to wait for some time to find the element using Implicit Wait Timeout.
+====================================
+
+   2. Explicit wait(WebDriver wait) -- 
+
+dynamic , applicable to particular webelement like button,textbox & if the elements taking bit time to load then we can specify explicit to those element to appear first then proceed
+- Explicit wait is applied for specific elements on page which take more time load or appear.
+
+-	The Explicit Wait in Selenium is used to tell the Web Driver to wait for certain conditions (Expected Conditions) or 	maximum time exceeded before throwing “ElementNotVisibleException” exception. It is an intelligent kind of wait, but it can be applied only for specified elements.
+
+-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds());
+		wait.until(ExpectedConditions)
+-    define “WebDriverWait” class on the webpage until the “ExpectedConditions” are met .
+======================================
+
+   3. Fluent wait -- 
+
+dynamic ,we can specify polling frequency (if element take long time but u want it to be checked by small interval of time i.e polling ), specify exculsion of the exception that can happen , similar to explicit wait
+
+-	The Fluent Wait in Selenium is used to define maximum time for the web driver to wait for a condition, as well as the 	frequency with which we want to check the condition before throwing an “ElementNotVisibleException” exception. It checks 	for the web element at regular intervals until the object is found or timeout happens.
+
+-	Frequency: Setting up a repeat cycle with the time frame to verify/check the condition at the regular interval of time
+
+-	Wait<WebDriver> wait=new FluentWait<WebDriver>(driver)
+		.withTimeout(Duration.ofSeconds())
+		.pollingEvery(Duration.ofSeconds())
+		.withMessage("Fluent wait")
+		.ignoring(Exception.class);
+		wait.until(ExpectedConditions);
+
+========================================
+   
+. sleep() -- Static wait , it stop the script
+
+
+driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+
+--------------------------------------------------------------------------------------------------------------------------
+Robots  --- users need control over keyboard or mouse to interact with OS windows like download pop-ups, print pop-ups, etc. and native applications like notepad, calculator, etc. It is generally used to simulate real-time keyboard and mouse operations which we do manually.
+
+
+keyPress(): Ex: robot.keyPress(KeyEvent.VK_DOWN) : This method with press down arrow key of Keyboard
+keyRelease() : Ex: robot.keyRelease(KeyEvent.VK_DOWN) : This method with release down arrow key of Keyboard
+To press down arrow key of Keyboard we use (robot.keyPress(KeyEvent.VK_DOWN))
+To press TAB key of keyboard (we use robot.keyPress(KeyEvent.VK_TAB))
+To press Enter key we use (robot.keyPress(KeyEvent.VK_ENTER)).
+To press ctrl+A , ctrl+C , ctrl+V   robot.keyPress(KeyEvent.VK_CONTROL),robot.keyPress(KeyEvent.VK_A)
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Web Alerts ( handle web alerts,pop ups,dialog)
+	    Simple Alert, Prompt Alert, Confirmation Alert
+ methods    . dismiss() 
+	       . accept()	
+	       . getText()  --  capture the text
+	       . sendKeys(String stringToSend) 
+
+Syntax   driver.switchTo().alert().method name();
+
+--------------------------------------------------------------------------------------------------------------
+
+Handling multiple windows  --  It is a unique identifier that holds the address of all the windows .(as a pointer to a window) . so each browser has a unique window handle.
+
+
+	. getWindowHandle() -- This method helps to get the window handle of the current window ,returns string ,we get unique ID of the current window (identified within driver instance.)
+	. getWindowHandles() -- this method helps to get the handles of all the windows opened,stores in set of string type,to handle all opened windows,transition from 1 window to another
+	. switchTo()  --  helps to switch between the windows
+	. set -- this method helps to set the window handles in the form of string.  set<String>(returns the set of handles)
+
+	. newWindow 	driver.switchTo().newWindow(WindowType.TAB);
+		        driver.switchTo().newWindow(WindowType.WINDOW);
+--------------------------------------------------------------------------------------------------------------
+
+Javascript executor  : -- I
+		-- It is an interface which provides mechanism to execute javascript through selenium driver .
+		-- javascript is a programming language that interacts with HTML in a browser , & to use this function in selenium  javaScriptExecutor is required
+
+* Two methods
+1. ExecuteScript : execute javascript in the currently selected window or frame.
+2. ExecuteAsyncScript : execute asynchronous javascript in the current window or frame.
+
+
+* STEPS :	
+	1. Import the package -- Import org.openqa.selenium.JavascriptExecutor;
+	2. Create a reference -- JavascriptExecutor js = (JavascriptExecutor) driver;
+	3. Call the JavascriptExecutor method -- js.executeScript(script, args);
+
+	JavaScriptExecutor js=(JavaScriptExecutor)driver;
+	refresh  -- js.executeScript("location.reload()");
+	ScrollBy(H,V)  --- js.executeScript("window.scrollBy(0,450)");
+	setAttribute    give the value
+	getAttribute	fetch and print it in console
+	click()       
+js.executeScript("argument[0])
+
+--------------------------------------------------------------------------------------------------------------
+Screenshots  ---I     TakesScreenshot         	getScreenShotAs() -- method
+dependency -- apache common IO
+
+A Screenshot in Selenium Webdriver is used for bug analysis.If users need to capture a screenshot , they need to use the TakeScreenshot method which notifies the WebDrive to take the screenshot and store it in Selenium.
+
+1) Convert web driver object to TakeScreenshot
+TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+
+2) Call getScreenshotAs method to create image file
+File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+
+3) Copy file to Desired Location
+
+
+
+
+
+
+
+
+
+
+
+
+
+Framework:-	It is a method of separating data sets from the test cases.
+. Data Driven (write and read excel files) (requires Apache POI)
+
+java  -- jars of apache POI (build path)
+maven -- dependency  
+
+2 versions
+ old -- xls  - HSSF (components) , dependency apache poi
+ new -- xlsx - XSSF (components) , dependency apache poi+poi-ooxml
+
+FileInputStream / FileoutputStream -- C
+Workbook -- I		HSSFWorkbook		XSSFWorkbook
+Sheet  -- I
+Row  -- I
+Cell  -- I
+
+createSheet()
+createRow()
+createCell()
+setCellValue()
+
+getSheet() :-		1. by index   			2. by sheet name
+getRow() :- 
+getCell() :- Get the cell representing a given column 
+
+getStringCellValue() , getNumericCellValue() , getBooleanCellValue()
+
+getPhysicalNumberOfRows() :- Gets the number of defined rows
+getPhysicalNumberOfCells() :- Gets the number of defined cells (NOT number of cells in the actual row!).
+getFirstRowNum()  :- Get the number of the first row contained in the sheet.
+getLastRowNum() :- Get the number of the last row contained in the sheet .
+getFirstCellNum() :- Get the number of the first cell contained in the row.
+getLastCellNum() :- Get the number of cells in the row (total count of cells)
+	     
+---------------------------------------------------------------------------------------------------------------------
+=================
+
+=================
+. timeout : The maximum time a test execution should take. If exceeded, the test fails automatically. (timeOut = 6000)
+===================
+. expectedExceptions:-
+expectedExceptions = NoSuchElementException.class
+expectedExceptions Is very good feature of testng using which we can Ignore known but not required exceptions. In your selenium webdriver test execution, You can use expectedExceptions when you know that any specific @Test method can throw specific exception but It Is not much more Important and you wants to Ignore that exception.
+
+If you have used expectedExceptions attribute with @Test method then Whenever Exceptions thrown In @Test method, It will compare It with expectedExceptions attribute's value. If both match then It will be handled by TestNG. That means your @Test method will be pass and remaining part of that method will be skipped.
+=========================
+@dataProvider:
+	To pass the different datas for same test case
+	return type of data provider is 2 dimensional array
+	if you want to access the data provider outside the class mention the data provider as static.
+===============
+. @parameters: 
+	-- when you want to pass the input from XML
+	-- @parameters annotation needs to be used
+===============
+-- @optional 
+In this annotation, if the defined parameter is not found in the testng.xml file, Then Test method will receive the default value from the @Optional annotation.When parameters name is not matched , then we give @optional. you have to pass the value at the time of initialization  , public void log(@Optional("name")String username)
+
+-- If both @parameters and @optional are used , where parameters name is matched , then preference will be given to 	parameter value
+================
+
+. Groups(define) : TestNG Groups allow you to perform groupings of different test methods. Grouping of test methods is required when you want to access the test methods of different classes.
+Exclude Tag:  Syntax for exclude tag <exclude name="${TEST_CASE_NAME}" />
+Include Tag:  Syntax for include tag <include name="${TEST_CASE_NAME}" />
+define
+run
+
+=================	
+Parallel: Parallel testing or parallel execution, as the name suggests, is a process of running the test case parallelly rather than one after the other.   In parallel testing, the program's multiple parts (or modules) execute together, saving the testers a lot of time and effort. (Fails On Dependent Modules)Parallel testing allows independent running of modules simultaneously. 
+parallel= ""  
+. Methods: This will run the parallel tests on all @Test methods in TestNG.
+. Tests: All the test cases present inside the <test> tag will run with this value.
+. Classes: All the test cases present inside the classes that exist in the XML will run in parallel.
+
+Thread count is basically a number of instances running to execute multiple tests simultaneously or in parallel. The attribute thread-count allows the user to specify how many threads should be run for this execution.
+
+--Thread.currentThread().getId()
+parallel="tests" thread-count="2"
+
+-- threadPoolSize: The number of threads we would like to create and run the test parallelly.
+==========================
+Cross-browser testing : it is the process of testing our website on different browsers and operating systems. With cross-browser testing, we make sure that the site is rendered the same in every browser. We can perform cross-browser testing either manually or in an automated way, but the manual method is very tedious. The reason being that while performing cross-browser testing, we do not only care about the browsers but their different versions and the operating systems too.
+
+Cross-browser testing using TestNG ensure a better performance on different browsers and OS.
+================================		
+
+Working of TestNG Annotations :-
+1. Launching the browser will be the first step and hence it is included under the @BeforeTest Annotation.
+2. Next is the actual test case which verifies the title, and is therefore included in the @Test annotation.
+3. Finally, the quit browser test case is considered under the @AfterTest annotation.
+
+
+-----------------------------------------------------------------------------------------------------------------
+================================================================================================================
+Exceptions:-
+WebDriver Exceptions in Selenium:
+There are many exceptions occurs while using Selenium tool. Here we will discuss most common exceptions.
+
+I have divided the exceptions in different category.
+
+Not Found exception:
+=====================
+NoSuchWindowException: Webdriver trying to switch on an invalid window.
+
+NoSuchFrameException: WebDriver trying to switch to an invalid frame.
+
+NoSuchElementException: If we have given wrong locator or element is not present is DOM.
+
+NoAlertPresentException: WebDriver trying to switch to an invalid alert.
+
+TimeOutException: When the selenium takes longer time than the given wait time then it throws TimeOutException.
+
+StaleElementReferenceException: If element is no longer present in the DOM due to page got refreshed or a frame/window switched or navigate to another page.
+
+
+InvalidElementState Exception:
+==============================
+ElementNotVisibleException: If element is present but visibility is off or If synchronization issue between Selenium and web application or if we have used duplicate xpath then this exception is thrown.
+
+ElementNotSelectableException:  if an element is disable (element is not clicked/selected) .
+
+
+java.lang.illegalargumentexception in selenium
+==============================================
+In Selenium, when we have given null or string length is zero in sendKeys() method the n it throw this exception.
+
+
+Element not visible exception is thrown when:
+==============================================
+
+There are many reasons which are mentioned below.
+
+1. If we try to locate a web element which is not visible or hidden on screen then we will get the element not visible exception.
+2. Synchronization problem: If Selenium is faster than application or vice versa.
+3. If we have used duplicate xpath in our script means more than one web element have same xpath.
+4. Sometimes weblement is not on the visible area of the screen (means when we scrolled down the screen then element is visible)
+
+--> how to solve such exceptions
+Solution 1: synchroniztion
+Solution 2: Always use the unique path that matches only a single element.
+Solution 3: We can use try.. catch block to handle this exception.
+---------------------------
+1. Solution 1: synchroniztion
+
+-- For 1st and 2nd above problem means when element will visible then we will perform operations.
+-- Here we can wait until the element is not visible. Once it will visible then we can perform an action.
+
+-- Here we can different wait commands.
+
+*) Thead.sleep(): It is not recommended because we never know in how much time the element will visible on the screen. It might be increasing our test execution.		Thread.sleep(30);
+*) Implicit wait: It is also not recommended because it will apply whole line of code in the given test script which increase the execution time.		driver.manage().timeouts().implicitlywait(20, TimeUnit.SECONDS);
+*) Explicit wait: F
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(“Locator”)));
+
+------------------------------
+In case of element is not in visibility area of the screen then first we need to scroll the web page using javaScriptExecutor then perform an action.
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("arguments[0].scrollIntoView(true);", element);
+
+
